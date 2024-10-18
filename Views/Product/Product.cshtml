@@ -1,0 +1,99 @@
+﻿@model TestApplication.Context.Product_Master
+
+@{
+    ViewBag.Title = "Product";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+@Html.Partial("_ProductPartial")
+
+<style>
+    .validation {
+        color: red;
+    }
+</style>
+
+@if (ViewBag.messange != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.messange
+    </div>
+}
+
+<h2>Add Product</h2>
+
+@using (Html.BeginForm("SaveEdit", "Product", FormMethod.Post))
+{
+    <div class="container">
+        @Html.HiddenFor(x => x.ProductID)<br />
+        <label id="lblAmt" style="color:blue">Total Amount</label>
+        <div class="form-group">
+            <label>Product Name</label>
+            @Html.ValidationMessageFor(x => x.ProductName, "", new { @class = "validation" })
+            @Html.TextBoxFor(x => x.ProductName, new { @class = "form-control", ID = "txtProduct", onkeyup = "CheckProductName()" })
+        </div>
+        <div class="form-group">
+            <label>Select Category</label>
+            @Html.ValidationMessageFor(x => x.SalePrice, "", new { @class = "validation" })
+            @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewData["Listitem"], "--Select--", new { @class = "form-control" })
+
+            @*@Html.DropDownListFor(x => x.CategoryID, (IEnumerable<SelectListItem>)ViewData["Listitem"], "--Select--", new { @class = "form-control" })*@
+        </div>
+        <div class="form-group">
+            <label>Product Sale Prise</label>
+            @Html.ValidationMessageFor(x => x.SalePrice, "", new { @class = "validation" })
+            @Html.TextBoxFor(x => x.SalePrice, new { @class = "form-control", Id = "txtSalePrice", onkeyup = "TotalAmont()" })
+        </div>
+
+        <div class="form-group">
+            <label>Product Cost Prise</label>
+            @Html.ValidationMessageFor(x => x.CostPrice, "", new { @class = "validation" })
+            @Html.TextBoxFor(x => x.CostPrice, new { @class = "form-control", Id = "txtCostPrice", onkeyup = "TotalAmont()" })
+        </div>
+
+        <div class="form-group">
+            <label>Product Inventory</label>
+            @Html.TextBoxFor(x => x.Inventory, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+           // alert("Ok");
+        });
+
+        function CheckProductName() {
+            debugger;
+            var ProductName = $('#txtProduct').val();
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetProductName","Product")',
+                data: { Product: ProductName },
+                contentType: 'application/json;charset-utf-8;',
+                success: function (response) {
+                    if (response == ProductName) {
+                        alert("Prosuct Name is Exit");
+                        $('#txtProduct').val('');
+                        return false;
+                    }
+                }
+            });
+        }
+
+        function TotalAmont() {
+            var SPrise = parseInt($('#txtSalePrice').val());
+            var CPrise = parseInt($('#txtCostPrice').val());
+            var Amt = SPrise + CPrise;
+            var lblAmt = $("#lblAmt");
+            lblAmt.html(Amt);
+        }
+
+    </script>
+}
+

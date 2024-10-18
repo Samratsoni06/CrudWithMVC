@@ -1,0 +1,39 @@
+﻿@model List<TestApplication.Context.Product_Master>
+
+@{
+    ViewBag.Title = "AllProduct";
+}
+
+@Html.Partial("_ProductPartial")
+
+<h2>All Product</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Cost Prisr</th>
+            <th>Product Sele Prise</th>
+            <th>Product Inventory</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductID</td>
+                <td>@item.ProductName</td>
+                <td>@item.CostPrice</td>
+                <td>@item.SalePrice</td>
+                <td>@item.Inventory</td>
+                <td>
+                    <a href="@Url.Action("Product",new {item.ProductID,item.ProductName,item.CostPrice,item.SalePrice,item.Inventory,item.CategoryID})" class="btn btn-primary">Update</a>
+                    <a href="@Url.Action("DeleteProduct",new {item.ProductID})" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

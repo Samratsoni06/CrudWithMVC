@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SJMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Product_Master">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="ProductName" Type="varchar" MaxLength="100" />
+          <Property Name="CostPrice" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="SalePrice" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Inventory" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__Product_M__Categ__6383C8BA' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__Product_M__Categ__6383C8BA" />-->
+        <EntityContainer Name="SJMSModelStoreContainer">
+          <EntitySet Name="Category_Master" EntityType="Self.Category_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Master" EntityType="Self.Product_Master" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SJMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Product_Master">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CostPrice" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="SalePrice" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Inventory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="SJMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category_Master" EntityType="Self.Category_Master" />
+          <EntitySet Name="Product_Master" EntityType="Self.Product_Master" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SJMSModelStoreContainer" CdmEntityContainer="SJMSEntities">
+          <EntitySetMapping Name="Category_Master">
+            <EntityTypeMapping TypeName="SJMSModel.Category_Master">
+              <MappingFragment StoreEntitySet="Category_Master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Master">
+            <EntityTypeMapping TypeName="SJMSModel.Product_Master">
+              <MappingFragment StoreEntitySet="Product_Master">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CostPrice" ColumnName="CostPrice" />
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+                <ScalarProperty Name="Inventory" ColumnName="Inventory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
