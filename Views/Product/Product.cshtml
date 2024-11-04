@@ -27,7 +27,7 @@
 {
     <div class="container">
         @Html.HiddenFor(x => x.ProductID)<br />
-        <label id="lblAmt" style="color:blue">Total Amount</label>
+        <label id="lblAmt" style="color:blue"></label>
         <div class="form-group">
             <label>Product Name</label>
             @Html.ValidationMessageFor(x => x.ProductName, "", new { @class = "validation" })
